@@ -70,11 +70,11 @@ public class PrintCard {
 
         card[4][1] = "_";
 
-        card[4][2] = "/" + colorReset; //Color reset thing iant working, unsure why
+        card[4][2] = "/" + colorReset; //Color reset thing isn't working, unsure why
 
         //for some reason the thing only works if it has extra spaces and even then it doesn't fully work,
 
-        //down below is an attempt for a temporary fix to make the extra bits null, it doesnt currently work as is
+        //down below is an attempt for a temporary fix to make the extra bits null, it doesn't currently work as is
 
 //        for (int upDown = 0; upDown < 5; upDown++) {
 //
@@ -100,9 +100,9 @@ public class PrintCard {
 
             }
 
-            for (int collums = 0; collums < 5; collums++) {
+            for (int columns = 0; columns < 5; columns++) {
 
-                System.out.print(card[rows][collums]);
+                System.out.print(card[rows][columns]);
 
             }
 
