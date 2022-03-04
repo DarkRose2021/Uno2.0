@@ -24,7 +24,7 @@ public class Card extends MainDeck{
     }
 
     //Generates a single random card. Used for drawing cards
-    static String genRandomCard(MainDeck deck, ArrayList<String> player) {
+    static void genRandomCard(MainDeck deck, ArrayList<String> player) {
         int cards = RNG.getInt(MainDeck.playedCards.size());
         String randomCard;
 
@@ -36,7 +36,6 @@ public class Card extends MainDeck{
             deck.getUnoDeck().remove(randomCard);
         }
         player.add(randomCard);
-        return randomCard;
     }
 
     static void drawNumOfCards(int numCards, ArrayList<String> player){

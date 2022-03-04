@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class PrintCard {
 
-    String[][] card = new String[5][3];
+//    String[][] card = new String[5][3];
     String cardColor = "";
     String cardNum = "";
     String colorReset = "" + Console.RESET;

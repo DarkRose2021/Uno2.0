@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class AIPlayer extends Player {
     public AIPlayer(String name) {
@@ -48,20 +47,19 @@ public class AIPlayer extends Player {
           String playedCard = cardsToPlay.get(cardPlay);
 
 
-          if(cardsToPlay.equals("Wild")){
+          if(cardsToPlay.contains("Wild")){
               callRules.wild();
               Controller.faceCard = playedCard;
               currentPlayerHand.remove(playedCard);
               MainDeck.playedCards.add(playedCard);
               System.out.println(name+ " played a "+ playedCard);
 
-          }else if(cardsToPlay.equals("Draw 4")){
+          }else if(cardsToPlay.contains("Draw 4")){
               callRules.draw4();
               Controller.faceCard = playedCard;
               currentPlayerHand.remove(playedCard);
               MainDeck.playedCards.add(playedCard);
               System.out.println(name+ " played a "+ playedCard);
-              //have the AI play the random card generated from list returned, i still believe we need to grab the stacks top or something, will continue tomorrow
 
           }else if(cardsToPlay.contains("Draw 2")){
               callRules.draw2();

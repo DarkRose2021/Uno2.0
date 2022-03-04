@@ -18,7 +18,7 @@ public class PlayerTurns {
     static void nextPlayer(){
         if (!isReversed) {
             switch (currentPlayer) {
-                case 0: {
+                case 0,1,2: {
                     currentPlayer++;
                 }
                 case 3: {

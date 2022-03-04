@@ -1,8 +1,6 @@
 package com.company;
 
 public class SpecialCardRules{
-    PrintCard card = new PrintCard();
-
     void skip() {
         if (PlayerTurns.isReversed) {
             switch (PlayerTurns.currentPlayer) {

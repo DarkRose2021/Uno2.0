@@ -11,16 +11,16 @@ public class Rules {
         player must enter uno before they play their 2nd to last card, or they get 3 random cards added to their hand
         draw 2 add 2 random cards to next player's hand
         2+ players, maybe max of 4
-        add option to add  ai players
+        add option to add  AI players
      */
 
     String stackTop = "";
 
     String color = "";
     String number = "";
-    String specialCase = "";
+//    String specialCase = "";
 
-    SpecialCardRules cardRules = new SpecialCardRules();
+//    SpecialCardRules cardRules = new SpecialCardRules();
     ArrayList<String> playableCards = new ArrayList<>();
 
     private void getColor(String topCard) {
@@ -56,7 +56,7 @@ public class Rules {
             cardsToPlay = true;
         }
 
-        if (cardsToPlay == true) {
+        if (cardsToPlay) {
             return playableCards;
         }
         return null;

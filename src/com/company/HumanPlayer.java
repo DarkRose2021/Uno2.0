@@ -1,14 +1,11 @@
 package com.company;
 
-import java.sql.SQLOutput;
-import java.util.ArrayList;
 import java.util.Timer;
-import java.util.concurrent.*;
 
 public class HumanPlayer extends Player {
-    Timer timer = new Timer();
-    static boolean calledUno = false;
-    static Rules rules = new Rules();
+//    Timer timer = new Timer();
+//    static boolean calledUno = false;
+//    static Rules rules = new Rules();
     private static PrintCard card = new PrintCard();
 
 
@@ -27,7 +24,7 @@ public class HumanPlayer extends Player {
             int selection = Console.getInteger("Enter Selection: ", 1, 2);
 
             switch (selection) {
-                case 1://Play Card
+                case 1 -> {//Play Card
                     String cardChoice = Console.getString("Enter card of choice, (ex. Green 2, Wild, Red Reverse): ");
                     if (SetHands.playerHand.contains(cardChoice)) {
                         if (cardChoice.equals("Wild")) {
@@ -69,13 +66,13 @@ public class HumanPlayer extends Player {
                         System.out.println("Card not found");
                         didTurn = false;
                     }
+                }
 //                            }
-                    break;
-                case 2://Draw Card
+                case 2 -> {//Draw Card
                     System.out.println(Controller.players.get(0).toString() + " drew a card.");
                     Card.drawNumOfCards(1, SetHands.playerHand);
                     didTurn = true;
-                    break;
+                }
             }
 
 

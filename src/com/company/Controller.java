@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Currency;
 
 public class Controller {
     MainDeck deck = new MainDeck();
@@ -24,7 +23,7 @@ public class Controller {
             View.displayMenu();
             int selection = Console.getInteger("Would you like to play a game Uno? ", 1, 2);
             switch (selection) {
-                case 1:
+                case 1 -> {
                     deck.buildDeck();
                     deck.getUnoDeck();
 //                  System.out.println(deck.getUnoDeck().size());
@@ -59,11 +58,8 @@ public class Controller {
                     //Print Face Card
                     currentCard.printFaceCard(faceCard);
                     PlayerTurns.turns();
-
-                    break;
-                case 2:
-                    quit = true;
-                    break;
+                }
+                case 2 -> quit = true;
             }
         }
         //after we have users choose card,
