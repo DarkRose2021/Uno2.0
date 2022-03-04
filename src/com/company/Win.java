@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class Win {
     static boolean isWinner = false; //change to true when the array is empty
     static int winner; //make the winner number their index in the array
@@ -18,6 +20,13 @@ public class Win {
             case 3:
                 System.out.println(Controller.players.get(3).toString()+ " is the winner!");
                 break;
+        }
+    }
+
+    static void setWinner(ArrayList<String> hand, int currentPlayer){
+        if(hand.isEmpty()){
+            winner = currentPlayer;
+            isWinner = true;
         }
     }
 }

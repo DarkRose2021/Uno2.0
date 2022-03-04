@@ -30,7 +30,7 @@ public class HumanPlayer extends Player {
             }
         }
         //Keep at end of method. moves to next player
-
+        Win.setWinner(SetHands.playerHand, 0);
         PlayerTurns.nextPlayer();
 
     }

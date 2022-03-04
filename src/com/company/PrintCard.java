@@ -1,14 +1,28 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public class PrintCard {
 
-    String[][] card = new String[5][5];
+    String[][] card = new String[5][3];
 
     String cardColor = "";
 
     String cardNum = "";
 
     String colorReset = "" + Console.RESET;
+
+    public void printHand(ArrayList<String> playerHand){
+
+        for (String s : playerHand) {
+
+            getInfo(s);
+
+            setCard(s);
+
+        }
+
+    }
 
     private void getInfo(String cardPlayed){
 
@@ -28,6 +42,10 @@ public class PrintCard {
 
             this.cardColor = "" + Console.GREEN;
 
+        }else{
+
+            this.cardColor = "" + Console.PURPLE;
+
         }
 
         for (int number = 0; number < 10; number++) {
@@ -38,75 +56,113 @@ public class PrintCard {
 
             }
 
+            switch (number){
+
+                case 0:
+
+                    if(cardPlayed.equals("Draw 2")){
+
+                        this.cardNum = "+2";
+
+                    }
+
+                    break;
+
+                case 1:
+
+                    if(cardPlayed.equals("Draw 4")){
+
+                        this.cardNum = "+4 W";
+
+                    }
+
+                    break;
+
+                case 2:
+
+                    if(cardPlayed.contains("Skip")){
+
+                        this.cardNum = "(/)";
+
+                    }
+
+                    break;
+
+                case 3:
+
+                    if(cardPlayed.equals("Wild")){
+
+                        this.cardNum = "W";
+
+                    }
+
+                    break;
+
+                case 4:
+
+                    if(cardPlayed.contains("Reverse")){
+
+                        this.cardNum = "^|⧵/";
+
+                    }
+
+                    break;
+
+            }
+
         }
 
     }
 
-    public void cardPrinter(String cardPlayed){
+    public void setCard(String cardPlayed){
 
         getInfo(cardPlayed);
 
         card[0][0] = cardColor + "/";
 
-        card[0][1] = "¯";
+        card[0][1] = "¯¯¯";
 
         card[0][2] = "⧵";
 
         card[1][0] = "|";
 
+        card[1][1] = "   ";
+
         card[1][2] = "|";
 
         card[2][0] = "|";
 
-        card[2][1] = cardNum;
+        card[2][1] = " " + cardNum + " ";
 
         card[2][2] = "|";
 
         card[3][0] = "|";
 
+        card[3][1] = "   ";
+
         card[3][2] = "|";
 
         card[4][0] = "⧵";
 
-        card[4][1] = "_";
+        card[4][1] = "___";
 
-        card[4][2] = "/" + colorReset; //Color reset thing isn't working, unsure why
+        card[4][2] = "/" + colorReset;
 
-        //for some reason the thing only works if it has extra spaces and even then it doesn't fully work,
+//        System.out.println();
 
-        //down below is an attempt for a temporary fix to make the extra bits null, it doesn't currently work as is
+        for(int i = 0; i < card.length; i++){
 
-//        for (int upDown = 0; upDown < 5; upDown++) {
-//
-//            for (int leftRight = 0; leftRight < 5; leftRight++) {
-//
-//                if(card[upDown][leftRight] != null) {
-//
-//                    card[upDown][leftRight] = String.valueOf(' ');
-//
-//                }
-//
-//            }
-//
-//        }
+            System.out.println();
 
-        for (int rows = 0; rows < 6; rows++) {
+            for (int j = 0; j < card[i].length; j++) {
 
-            //
-
-            if(rows <= 5) {
-
-                Console.println("",colorReset);
-
-            }
-
-            for (int columns = 0; columns < 5; columns++) {
-
-                System.out.print(card[rows][columns]);
+                System.out.print(card[i][j]);
 
             }
 
         }
+
+        System.out.println();
 
     }
 
