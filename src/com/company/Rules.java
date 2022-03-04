@@ -33,11 +33,8 @@ public class Rules {
         } else if (topCard.contains("Green")){
             this.color = "Green";
         }else{
-
             this.color = "Wild";
-
         }
-
     }
 
     private void getNumber(String topCard) {
@@ -49,17 +46,11 @@ public class Rules {
     }
 
     public ArrayList<String> checkForPlays(ArrayList<String> hand){
-
         //need to actually bring in stack Card/ grab from the stack, and make the stack, now realizing that im not sure if we've ever saved the stack itself . . . need tp ask katie about that tomorrow
-
         boolean cardsToPlay = false;
-
         if(isSpecial(hand, stackTop) || checkColor(hand, stackTop) || checkNumber(hand, stackTop)){
-
             cardsToPlay = true;
-
         }
-
 
         if(cardsToPlay == true){
 
@@ -157,47 +148,43 @@ public class Rules {
 
     }
 
-    public void checkTry(String cardPlayed, String stackTop) {
-
-        getNumber(stackTop);
-
-        if (cardPlayed.contains(specialCase)) {
-            for (int specials = 0; specials < 6; specials++) {
-                switch (specials) {
-                    case 1:
-                        if (specialCase.contains("Draw 2")) {
-                            cardRules.draw2();
-                        }
-                        break;
-                    case 2:
-                        if (specialCase.contains("Draw 4")) {
-                            //find way to call draw cards and change color
-                            cardRules.draw4();
-
-                            cardRules.wild();
-
-                        }
-                        break;
-                    case 3:
-                        if (specialCase.contains("Wild")) {
-                            cardRules.wild();
-                        }
-                        break;
-                    case 4:
-                        if (specialCase.contains("Reverse")) {
-                            //return thing to call a method to switch order
-                            cardRules.reverse();
-                        }
-                        break;
-                    case 5:
-                        if (specialCase.contains("Skip")) {
-                            //return thing to call a method to skip player, probs easiest, something like turn +1, then itll call the next turn method and skip person maybe.
-                            cardRules.skip();
-                        }
-                        break;
-                }
-            }
-        }
-
-    }
+//    public void checkTry(String cardPlayed, String stackTop) {
+//        getNumber(stackTop);
+//        if (cardPlayed.contains(specialCase)) {
+//            for (int specials = 0; specials < 6; specials++) {
+//                switch (specials) {
+//                    case 1:
+//                        if (specialCase.contains("Draw 2")) {
+//                            cardRules.draw2();
+//                        }
+//                        break;
+//                    case 2:
+//                        if (specialCase.equals("Draw 4")) {
+//                            //find way to call draw cards and change color
+//                            cardRules.draw4();
+//
+//                            cardRules.wild();
+//
+//                        }
+//                        break;
+//                    case 3:
+//                        if (specialCase.equals("Wild")) {
+//                            cardRules.wild();
+//                        }
+//                        break;
+//                    case 4:
+//                        if (specialCase.contains("Reverse")) {
+//                            //return thing to call a method to switch order
+//                            cardRules.reverse();
+//                        }
+//                        break;
+//                    case 5:
+//                        if (specialCase.contains("Skip")) {
+//                            cardRules.skip();
+//                        }
+//                        break;
+//                }
+//            }
+//        }
+//    }
 }

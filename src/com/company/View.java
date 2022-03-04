@@ -8,15 +8,10 @@ public class View {
     }
 
     public static void playerTurn(){
-        System.out.println(SetHands.playerHand);
+        System.out.println();
+        System.out.println("What do you want to do?");
         System.out.println("[1] Play card");
         System.out.println("[2] Draw card");
-    }
-
-    public static void playerCards(){
-        for (int i = 0; i < SetHands.playerHand.size(); i++) {
-            System.out.println(SetHands.playerHand.get(i));
-        }
     }
 
     static void displayTurn(){

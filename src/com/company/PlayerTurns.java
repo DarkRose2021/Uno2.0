@@ -4,7 +4,6 @@ public class PlayerTurns {
     static int currentPlayer;
     static boolean isReversed = false;
 
-
     static String startingPlayer(){
         currentPlayer = RNG.getInt(0,3);
         return switch (currentPlayer) {
@@ -36,5 +35,20 @@ public class PlayerTurns {
                 }
             }
         }
+    }
+
+    static void turns() throws InterruptedException {
+        while (!Win.isWinner){
+            if (currentPlayer == 0){
+                HumanPlayer.userTurn();
+            }else if(currentPlayer == 1){
+                AIPlayer.player1Turn();
+            }else if(currentPlayer == 2){
+                AIPlayer.player2Turn();
+            }else{
+                AIPlayer.player3Turn();
+            }
+        }
+
     }
 }

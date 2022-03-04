@@ -1,6 +1,6 @@
 package com.company;
 
-public class SpecialCardRules extends Rules {
+public class SpecialCardRules{
     void skip() {
         if (PlayerTurns.isReversed) {
             switch (PlayerTurns.currentPlayer) {
@@ -59,6 +59,7 @@ public class SpecialCardRules extends Rules {
     }
 
     void draw4() {
+        wild();
         switch (PlayerTurns.currentPlayer) {
             case 0 -> {
                 if (PlayerTurns.isReversed) {
@@ -77,6 +78,7 @@ public class SpecialCardRules extends Rules {
                 PlayerTurns.currentPlayer = 3;
             }
             case 2 -> {
+
                 if (PlayerTurns.isReversed) {
                     Card.drawNumOfCards(4, SetHands.hand1);
                 } else {
@@ -108,30 +110,15 @@ public class SpecialCardRules extends Rules {
     void chooseColor() {
         View.displayColor();
         int color = Console.getInteger("Choose a color: ", 1, 4);
-        //set face card
-        switch (color) {
-            case 1 -> {//Red
-                System.out.println("Color is now red!");
-                Controller.faceCard = "Red";
-            }
-            case 2 -> {//Yellow
-                System.out.println("Color is now yellow!");
-                Controller.faceCard = "Yellow";
-            }
-            case 3 -> {//Blue
-                System.out.println("Color is now blue!");
-                Controller.faceCard = "Blue";
-            }
-            case 4 -> {//Green
-                System.out.println("Color is now green!");
-                Controller.faceCard = "Green";
-            }
-        }
+        colors(color);
     }
 
     void randomColor() {
         int color = RNG.getInt(1, 4);
+        colors(color);
+    }
 
+    private void colors(int color) {
         switch (color) {
             case 1 -> {//Red
                 System.out.println("Color is now red!");

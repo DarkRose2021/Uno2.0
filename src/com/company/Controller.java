@@ -12,8 +12,15 @@ public class Controller {
     PrintCard currentCard = new PrintCard();
 
     public void run() throws InterruptedException {
+        //clearing hands at the beginning so that if you want to play again you will get a new hand
+        SetHands.playerHand.clear();
+        SetHands.hand1.clear();
+        SetHands.hand2.clear();
+        SetHands.hand3.clear();
+
+
         boolean quit = false;
-        while (!Win.isWinner && !quit) {
+        while (!quit) {
             View.displayMenu();
             int selection = Console.getInteger("Would you like to play a game Uno? ", 1, 2);
             switch (selection) {
@@ -44,21 +51,14 @@ public class Controller {
                         }
                     }
 
-                    System.out.println();
-//                    currentCard.setCard(faceCard);
-
-                    System.out.println();
-
-                    currentCard.printHand(SetHands.playerHand);
-
                     //Randomly chooses first player
+                    System.out.println();
                     PlayerTurns.startingPlayer();
                     View.displayTurn();
 
                     //Print Face Card
-                    currentCard.setCard(faceCard);
-                    System.out.println("Face card");
-
+                    currentCard.printFaceCard(faceCard);
+                    PlayerTurns.turns();
 
                     break;
                 case 2:
@@ -66,11 +66,9 @@ public class Controller {
                     break;
             }
         }
-        Win.displayWinner();
         //after we have users choose card,
         // we should call the rules and check, then somewhere in have if(cards in hand == 1 add option (press uno), give the player about 5 seconds,
         // and if pressed
-
     }
 }
 

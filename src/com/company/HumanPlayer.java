@@ -16,51 +16,108 @@ public class HumanPlayer extends Player {
         super(name);
     }
 
-    static void userTurn(MainDeck deck) {
+    static void userTurn() {
+        boolean didTurn = false;
+
         if (PlayerTurns.currentPlayer == 0) {
-            View.playerTurn();
-            int selection = Console.getInteger("Enter selection: ", 1, 2);
+            if (SetHands.playerHand.size() == 2) {
+                callUno();
+            } else {
 
-            switch (selection) {
-                case 1:
-                    View.playerCards();
-                    break;
+                while (!didTurn) {
+                    SpecialCardRules specialCardRules = new SpecialCardRules();
+                    ArrayList<String> cardsCanPlay = rules.checkForPlays(SetHands.playerHand);
 
-                case 2:
-                    for (int i = 0; i < 2; i++) {
-                        SetHands.playerHand.add(Card.genRandomCard(deck, SetHands.playerHand));
+                    card.printHand(SetHands.playerHand);
+                    View.playerTurn();
+                    int selection = Console.getInteger("Enter Selection: ", 1, 2);
+                    switch (selection) {
+                        case 1://Play Card
+                            String cardChoice = Console.getString("Enter card of choice, (ex. Green 2, Wild, Red Reverse): ");
+
+                            if (cardsCanPlay.isEmpty()) {
+                                Card.drawNumOfCards(1, SetHands.playerHand);
+                                didTurn = true;
+                            } else {
+                                if (SetHands.playerHand.contains(cardChoice)) {
+                                    if (cardChoice.equals("Wild")) {
+                                        specialCardRules.wild();
+                                        Controller.faceCard = cardChoice;
+                                        SetHands.playerHand.remove(cardChoice);
+                                        MainDeck.playedCards.add(cardChoice);
+
+                                    } else if (cardChoice.equals("Draw 4")) {
+                                        specialCardRules.draw4();
+                                        Controller.faceCard = cardChoice;
+                                        SetHands.playerHand.remove(cardChoice);
+                                        MainDeck.playedCards.add(cardChoice);
+
+                                    } else if (cardChoice.contains("Draw 2")) {
+                                        specialCardRules.draw2();
+                                        Controller.faceCard = cardChoice;
+                                        SetHands.playerHand.remove(cardChoice);
+                                        MainDeck.playedCards.add(cardChoice);
+
+                                    } else if (cardChoice.contains("Reverse")) {
+                                        specialCardRules.reverse();
+                                        Controller.faceCard = cardChoice;
+                                        SetHands.playerHand.remove(cardChoice);
+                                        MainDeck.playedCards.add(cardChoice);
+
+                                    } else if (cardChoice.contains("Skip")) {
+                                        specialCardRules.skip();
+                                        Controller.faceCard = cardChoice;
+                                        SetHands.playerHand.remove(cardChoice);
+                                        MainDeck.playedCards.add(cardChoice);
+
+                                    } else {
+                                        Controller.faceCard = cardChoice;
+                                        SetHands.playerHand.remove(cardChoice);
+                                        MainDeck.playedCards.add(cardChoice);
+                                    }
+                                    didTurn = true;
+                                } else {
+                                    System.out.println("Card not found");
+                                    didTurn = false;
+                                }
+                            }
+                            break;
+                        case 2://Draw Card
+                            System.out.println(Controller.players.get(0).toString() + " drew a card.");
+                            Card.drawNumOfCards(1, SetHands.playerHand);
                     }
 
-                    break;
+                    Win.setWinner(SetHands.playerHand, 0);
+                    PlayerTurns.nextPlayer();
+                }
             }
+            //Keep at end of method. moves to next player
         }
-        //Keep at end of method. moves to next player
-        Win.setWinner(SetHands.playerHand, 0);
-        PlayerTurns.nextPlayer();
-
     }
 
-    void callUno() {
+    static void callUno() {
         ExecutorService service = Executors.newSingleThreadExecutor();
 
         try {
             Runnable r = () -> {
 
-                String uno =  Console.getString("Enter Uno");
-                if(uno.equalsIgnoreCase("uno")){
+                String uno = Console.getString("Enter Uno");
+                if (uno.equalsIgnoreCase("uno")) {
                     calledUno = true;
-                }else{
+                    System.out.println(Controller.players.get(0).toString() + " called Uno!");
+                } else {
                     calledUno = false;
                 }
             };
-
             Future<?> f = service.submit(r);
 
             f.get(5, TimeUnit.SECONDS); // attempt the task for five seconds
         } catch (final InterruptedException e) {
+            System.out.println(e.getMessage());
             // The thread was interrupted during sleep, wait or join
         } catch (final TimeoutException e) {
-            // Took too long!
+            System.out.println("Took too long! Cards will now be added to your deck");
+            Card.drawNumOfCards(3, SetHands.playerHand);
         } catch (final ExecutionException e) {
             // An exception from within the Runnable task
         } finally {
