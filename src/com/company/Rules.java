@@ -14,10 +14,14 @@ public class Rules {
         add option to add  ai players
      */
 
+    String stackTop = "";
+
     String color = "";
     String number = "";
     String specialCase = "";
     SpecialCardRules cardRules = new SpecialCardRules();
+
+    ArrayList<String> playableCards = new ArrayList<>();
 
     private void getColor(String topCard) {
         if (topCard.contains("Red")) {
@@ -26,8 +30,12 @@ public class Rules {
             this.color = "Yellow";
         } else if (topCard.contains("Blue")) {
             this.color = "Blue";
-        } else {
+        } else if (topCard.contains("Green")){
             this.color = "Green";
+        }else{
+
+            this.color = "Wild";
+
         }
 
     }
@@ -40,16 +48,119 @@ public class Rules {
         }
     }
 
-    private void checkSpecial(String topCard) {
-        if (topCard.contains("Draw 2") || topCard.contains("Draw 4") || topCard.contains("Skip") || topCard.contains("Reverse") || topCard.contains("Wild")) {
-            this.specialCase = topCard;
+    public ArrayList<String> checkForPlays(ArrayList<String> hand){
+
+        //need to actually bring in stack Card/ grab from the stack, and make the stack, now realizing that im not sure if we've ever saved the stack itself . . . need tp ask katie about that tomorrow
+
+        boolean cardsToPlay = false;
+
+        if(isSpecial(hand, stackTop) || checkColor(hand, stackTop) || checkNumber(hand, stackTop)){
+
+            cardsToPlay = true;
+
         }
+
+
+        if(cardsToPlay == true){
+
+            return playableCards;
+
+        }
+
+        return null;
+
+    }
+
+    private boolean isSpecial(ArrayList<String> hand, String stackTop){
+
+        for (int handSize = 0; handSize < hand.size(); handSize++) {
+
+            if (stackTop.contains("Draw 2") || stackTop.contains("Draw 4") || stackTop.contains("Skip") || stackTop.contains("Reverse") || stackTop.contains("Wild")) {
+
+                getColor(stackTop);
+
+                if(hand.get(handSize).contains("Wild")){
+
+                    playableCards.add(String.valueOf(handSize));
+
+                    return true;
+
+                }
+
+                if(hand.get(handSize).contains(color) != stackTop.contains(color)){
+
+                    return false;
+
+                }else{
+
+                    playableCards.add(String.valueOf(handSize));
+
+                    return true;
+
+                }
+
+            }
+
+        }
+
+
+
+        return true;
+
+    }
+
+    private boolean checkColor(ArrayList<String> hand, String stackTop){
+
+        getColor(stackTop);
+
+        for (int handSize = 0; handSize < hand.size(); handSize++) {
+
+            if (hand.get(handSize).contains(color) != stackTop.contains(color)) {
+
+                return false;
+
+            }else{
+
+                playableCards.add(String.valueOf(handSize));
+
+                return true;
+
+            }
+
+        }
+
+        return true;
+
+    }
+
+    private boolean checkNumber(ArrayList<String> hand, String stackTop){
+
+        getNumber(stackTop);
+
+        for (int handSize = 0; handSize < hand.size(); handSize++) {
+
+            if(hand.get(Integer.parseInt(number)).contains(number) != stackTop.contains(number)){
+
+                return false;
+
+            }else{
+
+                playableCards.add(String.valueOf(handSize));
+
+                return true;
+
+            }
+
+        }
+
+        return true;
+
     }
 
     public void checkTry(String cardPlayed, String stackTop) {
-        getColor(stackTop);
+
         getNumber(stackTop);
-        //make sure to only check when things get played, might be a problem where things will overlap like the number isn't good but the color is, try to find way to make do good
+
         if (cardPlayed.contains(specialCase)) {
             for (int specials = 0; specials < 6; specials++) {
                 switch (specials) {
@@ -62,6 +173,9 @@ public class Rules {
                         if (specialCase.contains("Draw 4")) {
                             //find way to call draw cards and change color
                             cardRules.draw4();
+
+                            cardRules.wild();
+
                         }
                         break;
                     case 3:
@@ -85,12 +199,5 @@ public class Rules {
             }
         }
 
-        if (cardPlayed.contains(number) != stackTop.contains(number)) {
-            System.out.println("invalid number, try color");
-        }
-
-        if (cardPlayed.contains(color) != stackTop.contains(color)) {
-            System.out.println("invalid card, try again or draw a card");
-        }
     }
 }
