@@ -46,7 +46,7 @@ public class AIPlayer extends Player {
       }else{
           int cardPlay = RNG.getInt(cardsToPlay.size());
           String playedCard = cardsToPlay.get(cardPlay);
-          System.out.println(name+ " played a "+ playedCard);
+
 
           if(cardsToPlay.equals("Wild")){
               callRules.wild();
@@ -90,6 +90,8 @@ public class AIPlayer extends Player {
               MainDeck.playedCards.add(playedCard);
               System.out.println(name+ " played a "+ playedCard);
           }
+          System.out.println(name+ " played a "+ playedCard);
+          card.printFaceCard(Controller.faceCard);
       }
     }
 }

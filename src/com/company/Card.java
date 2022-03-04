@@ -39,13 +39,10 @@ public class Card extends MainDeck{
         return randomCard;
     }
 
-    static String drawNumOfCards(int numCards, ArrayList<String> player){
-        String card = null;
+    static void drawNumOfCards(int numCards, ArrayList<String> player){
         for (int i = 0; i < numCards; i++) {
-             card = genRandomCard(new MainDeck(), player);
-            player.add(card);
+            genRandomCard(new MainDeck(), player);
         }
-        return card;
     }
 }
 

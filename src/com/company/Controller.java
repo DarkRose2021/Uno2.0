@@ -12,11 +12,11 @@ public class Controller {
     PrintCard currentCard = new PrintCard();
 
     public void run() throws InterruptedException {
-        //clearing hands at the beginning so that if you want to play again you will get a new hand
-        SetHands.playerHand.clear();
-        SetHands.hand1.clear();
-        SetHands.hand2.clear();
-        SetHands.hand3.clear();
+//        //clearing hands at the beginning so that if you want to play again you will get a new hand
+//        SetHands.playerHand.clear();
+//        SetHands.hand1.clear();
+//        SetHands.hand2.clear();
+//        SetHands.hand3.clear();
 
 
         boolean quit = false;

@@ -1,6 +1,8 @@
 package com.company;
 
 public class SpecialCardRules{
+    PrintCard card = new PrintCard();
+
     void skip() {
         if (PlayerTurns.isReversed) {
             switch (PlayerTurns.currentPlayer) {
@@ -99,12 +101,9 @@ public class SpecialCardRules{
 
     void wild() {
         switch (PlayerTurns.currentPlayer) {
-            case 0:
-                chooseColor();
-            case 1, 2, 3:
-                randomColor();
+            case 0 -> chooseColor();
+            case 1, 2, 3 -> randomColor();
         }
-        System.out.println(Controller.faceCard);
     }
 
     void chooseColor() {
