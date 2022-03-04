@@ -19,8 +19,8 @@ public class Rules {
     String color = "";
     String number = "";
     String specialCase = "";
-    SpecialCardRules cardRules = new SpecialCardRules();
 
+    SpecialCardRules cardRules = new SpecialCardRules();
     ArrayList<String> playableCards = new ArrayList<>();
 
     private void getColor(String topCard) {

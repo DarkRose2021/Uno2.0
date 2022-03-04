@@ -1,11 +1,16 @@
 package com.company;
 
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.concurrent.*;
 
 public class HumanPlayer extends Player {
     Timer timer = new Timer();
-    boolean calledUno = false;
+    static boolean calledUno = false;
+    static Rules rules = new Rules();
+    private static PrintCard card = new PrintCard();
+
 
     public HumanPlayer(String name) {
         super(name);

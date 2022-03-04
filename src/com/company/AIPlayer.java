@@ -6,8 +6,8 @@ public class AIPlayer extends Player {
     public AIPlayer(String name) {
         super(name);
     }
-
-    Rules rules = new Rules();
+    private static Rules rules = new Rules();
+    private static PrintCard card = new PrintCard();
 
     //TODO let bots randomly draw a card from their deck that matches the face card or have them draw cards
     static void player1Turn() throws InterruptedException {
