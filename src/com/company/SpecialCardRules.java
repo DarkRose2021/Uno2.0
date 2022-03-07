@@ -118,19 +118,19 @@ public class SpecialCardRules{
     private void colors(int color) {
         switch (color) {
             case 1 -> {//Red
-                System.out.println("Color is now red!");
+                System.out.println("Color is now "+ Console.RED+ "red!"+ Console.RESET);
                 Controller.faceCard = "Red";
             }
             case 2 -> {//Yellow
-                System.out.println("Color is now yellow!");
+                System.out.println("Color is now "+ Console.YELLOW+ "yellow!"+ Console.RESET);
                 Controller.faceCard = "Yellow";
             }
             case 3 -> {//Blue
-                System.out.println("Color is now blue!");
+                System.out.println("Color is now "+ Console.BLUE+ "blue!"+ Console.RESET);
                 Controller.faceCard = "Blue";
             }
             case 4 -> {//Green
-                System.out.println("Color is now green!");
+                System.out.println("Color is now "+ Console.GREEN+ "green!"+ Console.RESET);
                 Controller.faceCard = "Green";
             }
         }

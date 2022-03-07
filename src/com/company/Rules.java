@@ -43,133 +43,62 @@ public class Rules {
 
     private String getNumber(String topCard) {
         for (int posNumbs = 0; posNumbs < 10; posNumbs++) {
-
             if (topCard.contains("" + posNumbs)) {
-
                 this.number = "" + posNumbs;
-
             }
-
         }
 
         if(topCard.contains("Skip")){
-
             this.number = "Skip";
 
         }else if(topCard.contains("Reverse")){
-
             this.number = "Reverse";
 
         }else if(topCard.contains("Draw 2")){
-
             this.number = "Draw 2";
 
         }else if(topCard.equals("Wild")){
-
             this.number = "Wild";
 
         }else if(topCard.equals("Draw 4")){
-
             this.number = ("Draw 4");
-
         }
-
         return number;
     }
 
-//    private String checkSpecial(String topCard, String cardToCheck){
-//
-//        if(cardToCheck.contains("Reverse")){
-//
-//            getColor(topCard);
-//
-//            if(cardToCheck.contains(color)){
-//
-//                return cardToCheck;
-//
-//            }
-//
-//        }else if(cardToCheck.contains("Skip")){
-//
-//            getColor(topCard);
-//
-//            if(cardToCheck.contains(color)){
-//
-//                return cardToCheck;
-//
-//            }
-//
-//        }else if(cardToCheck.contains("Draw 2")){
-//
-//            getColor(topCard);
-//
-//            if (cardToCheck.contains(color)){
-//
-//                return cardToCheck;
-//
-//            }
-//
-//        }else{
-//
-//            return cardToCheck;
-//
-//        }
-//
-//        return null;
-//
-//    }
-
     public String getACard(ArrayList<String> hand, String faceCard){//for AI
-
         ArrayList<String> goodCards = new ArrayList<>();
-
         getNumber(faceCard);
-
         getColor(faceCard);
 
         for (int amountOfCards = 0; amountOfCards < hand.size(); amountOfCards++) {
-
             if (hand.get(amountOfCards).equals("Draw 4") || hand.get(amountOfCards).equals("Wild")){
-
                 goodCards.add(hand.get(amountOfCards));
-
             }
 
             if(hand.get(amountOfCards).contains(color)|| hand.get(amountOfCards).contains(number)){
-
                 goodCards.add(hand.get(amountOfCards));
-
             }
-
         }
 
         int cardPlay = RNG.getInt(goodCards.size());
-
         return goodCards.get(cardPlay);
-
     }
 
-    String checkBotHand(ArrayList<String> hand, String faceCard){
-        String card = String.valueOf(RNG.getInt(hand.size()));
-        boolean canPlay = false;
-        while (!canPlay){
-            for (int handSize = 0; handSize < hand.size(); handSize++) {
-                if(card.contains(getColor(faceCard)) || card.contains(getNumber(faceCard))){
-                    canPlay = true;
-                }else if(card.equals("Wild") || card.equals("Draw 4")){
-                    canPlay = true;
-                }
+    public ArrayList<String> checkTheCards(ArrayList<String> hand, String faceCard){//for User
+        ArrayList<String> possibleCards = new ArrayList<>();
+        getNumber(faceCard);
+        getColor(faceCard);
+
+        for (int amountOfCards = 0; amountOfCards < hand.size(); amountOfCards++) {
+            if (hand.get(amountOfCards).equals("Draw 4") || hand.get(amountOfCards).equals("Wild")){
+                possibleCards.add(hand.get(amountOfCards));
             }
-            canPlay = false;
-        }
-        if (canPlay){
-            return card;
-        }else{
-            return null;
-        }
-    }
 
-//    String checkUserHand(ArrayList<String> hand, String faceCard, String playedCard){
-//
-//    }
+            if(hand.get(amountOfCards).contains(color)|| hand.get(amountOfCards).contains(number)){
+                possibleCards.add(hand.get(amountOfCards));
+            }
+        }
+        return possibleCards;
+    }
 }
