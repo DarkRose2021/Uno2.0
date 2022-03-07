@@ -14,6 +14,7 @@ public class AIPlayer extends Player {
 
     //TODO let bots randomly draw a card from their deck that matches the face card or have them draw cards
     static void player1Turn() throws InterruptedException {
+        Win.setWinner(SetHands.hand1, 1);
         turnDo(SetHands.hand1, Controller.players.get(1).toString());
         //Keep at end of method. moves to next player
         Win.setWinner(SetHands.hand1, 1);
@@ -21,6 +22,7 @@ public class AIPlayer extends Player {
     }
 
     static void player2Turn() throws InterruptedException {
+        Win.setWinner(SetHands.hand3, 3);
         turnDo(SetHands.hand2, Controller.players.get(2).toString());
         //Keep at end of method. moves to next player
         Win.setWinner(SetHands.hand3, 3);
@@ -28,6 +30,7 @@ public class AIPlayer extends Player {
     }
 
     static void player3Turn() throws InterruptedException {
+        Win.setWinner(SetHands.hand3, 3);
         turnDo(SetHands.hand3, Controller.players.get(3).toString());
         //Keep at end of method. moves to next player
         Win.setWinner(SetHands.hand3, 3);
