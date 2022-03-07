@@ -17,23 +17,29 @@ public class PlayerTurns {
 
     static void nextPlayer(){
         if (!isReversed) {
-            switch (currentPlayer) {
-                case 0, 1, 2 -> {
-                    currentPlayer++;
-                }
-                case 3 -> {
-                    currentPlayer = 0;
-                }
+
+            if(currentPlayer != 3){
+
+                currentPlayer++;
+
+            }else{
+
+                currentPlayer = 0;
+
             }
+
         } else {
-            switch (currentPlayer) {
-                case 0 -> {
-                    currentPlayer = 3;
-                }
-                case 1, 2, 3 -> {
-                    currentPlayer--;
-                }
+
+            if(currentPlayer != 0){
+
+                currentPlayer --;
+
+            }else{
+
+                currentPlayer = 3;
+
             }
+
         }
     }
 

@@ -43,11 +43,57 @@ public class Rules {
 
     private void getNumber(String topCard) {
         for (int posNumbs = 0; posNumbs < 10; posNumbs++) {
+
             if (topCard.contains("" + posNumbs)) {
+
                 this.number = "" + posNumbs;
+
             }
+
         }
     }
+
+//    private String checkSpecial(String topCard, String cardToCheck){
+//
+//        if(cardToCheck.contains("Reverse")){
+//
+//            getColor(topCard);
+//
+//            if(cardToCheck.contains(color)){
+//
+//                return cardToCheck;
+//
+//            }
+//
+//        }else if(cardToCheck.contains("Skip")){
+//
+//            getColor(topCard);
+//
+//            if(cardToCheck.contains(color)){
+//
+//                return cardToCheck;
+//
+//            }
+//
+//        }else if(cardToCheck.contains("Draw 2")){
+//
+//            getColor(topCard);
+//
+//            if (cardToCheck.contains(color)){
+//
+//                return cardToCheck;
+//
+//            }
+//
+//        }else{
+//
+//            return cardToCheck;
+//
+//        }
+//
+//        return null;
+//
+//    }
 
     public ArrayList<String> checkForPlays(ArrayList<String> hand) {
 
