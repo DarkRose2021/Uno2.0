@@ -3,7 +3,7 @@ package com.company;
 import java.util.ArrayList;
 
 public class Controller {
-    MainDeck deck = new MainDeck();
+    static MainDeck deck = new MainDeck();
     Card card = new Card();
     SetHands setHands = new SetHands();
     static ArrayList<Player> players = new ArrayList<>();

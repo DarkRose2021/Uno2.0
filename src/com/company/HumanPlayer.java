@@ -67,11 +67,11 @@ public class HumanPlayer extends Player {
                         didTurn = false;
                     }
                 }
-//                            }
                 case 2 -> {//Draw Card
                     System.out.println(Controller.players.get(0).toString() + " drew a card.");
                     Card.drawNumOfCards(1, SetHands.playerHand);
                     didTurn = true;
+
                 }
             }
 

@@ -50,10 +50,21 @@ public class Rules {
     }
 
     public ArrayList<String> checkForPlays(ArrayList<String> hand) {
+
+        ArrayList<String> playableCards = new ArrayList<>();
+
         boolean cardsToPlay = false;
 
-        if (isSpecial(hand, stackTop) || checkColor(hand, stackTop) || checkNumber(hand, stackTop)) {
-            cardsToPlay = true;
+        for (int checkedCards = 0; checkedCards < hand.size(); checkedCards++) {
+
+            if (isSpecial(hand, stackTop) == true || checkColor(hand, stackTop) == true || checkNumber(hand, stackTop) == true) {
+
+                playableCards.add(hand.get(checkedCards));
+
+                cardsToPlay = true;
+
+            }
+
         }
 
         if (cardsToPlay) {
@@ -66,7 +77,7 @@ public class Rules {
         for (int handSize = 0; handSize < hand.size(); handSize++) {
             if (stackTop.contains("Draw 2") || stackTop.contains("Draw 4") || stackTop.contains("Skip") || stackTop.contains("Reverse") || stackTop.contains("Wild")) {
                 getColor(stackTop);
-                if (hand.get(handSize).contains("Wild")) {
+                if (hand.get(handSize).contains("Wild") || hand.get(handSize).contains("Draw 4")) {
                     playableCards.add(String.valueOf(handSize));
                     return true;
                 }
@@ -87,9 +98,13 @@ public class Rules {
         getColor(stackTop);
 
         for (int handSize = 0; handSize < hand.size(); handSize++) {
-            if (hand.get(handSize).contains(color) != stackTop.contains(color)) {
+            if(hand.get(handSize).contains("Wild") || hand.get(handSize).contains("Draw 4")){
+
+                return true;
+
+            }else if(hand.get(handSize).contains(color) != stackTop.contains(color)) {
                 return false;
-            } else {
+            }else{
                 playableCards.add(String.valueOf(handSize));
                 return true;
             }
@@ -101,8 +116,15 @@ public class Rules {
         getNumber(stackTop);
 
         for (int handSize = 0; handSize < hand.size(); handSize++) {
-            if (hand.get(Integer.parseInt(number)).contains(number) != stackTop.contains(number)) {
+
+            if(hand.get(handSize).contains("Wild") || hand.get(handSize).contains("Draw 4")){
+
+                return true;
+
+            }else if(hand.get(handSize) != stackTop) {
+
                 return false;
+
             } else {
                 playableCards.add(String.valueOf(handSize));
                 return true;
