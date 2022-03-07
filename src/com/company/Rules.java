@@ -18,12 +18,11 @@ public class Rules {
 
     String color = "";
     String number = "";
-//    String specialCase = "";
+    //    String specialCase = "";
+    //    SpecialCardRules cardRules = new SpecialCardRules();
+    //    ArrayList<String> playableCards = new ArrayList<>();
 
-//    SpecialCardRules cardRules = new SpecialCardRules();
-    ArrayList<String> playableCards = new ArrayList<>();
-
-    private void getColor(String topCard) {
+    private String getColor(String topCard) {
         if (topCard.contains("Red")) {
             this.color = "Red";
 
@@ -39,9 +38,10 @@ public class Rules {
         } else {
             this.color = "Wild";
         }
+        return color;
     }
 
-    private void getNumber(String topCard) {
+    private String getNumber(String topCard) {
         for (int posNumbs = 0; posNumbs < 10; posNumbs++) {
 
             if (topCard.contains("" + posNumbs)) {
@@ -51,6 +51,30 @@ public class Rules {
             }
 
         }
+
+        if(topCard.contains("Skip")){
+
+            this.number = "Skip";
+
+        }else if(topCard.contains("Reverse")){
+
+            this.number = "Reverse";
+
+        }else if(topCard.contains("Draw 2")){
+
+            this.number = "Draw 2";
+
+        }else if(topCard.equals("Wild")){
+
+            this.number = "Wild";
+
+        }else if(topCard.equals("Draw 4")){
+
+            this.number = ("Draw 4");
+
+        }
+
+        return number;
     }
 
 //    private String checkSpecial(String topCard, String cardToCheck){
@@ -95,138 +119,57 @@ public class Rules {
 //
 //    }
 
-    public ArrayList<String> checkForPlays(ArrayList<String> hand) {
+    public String getACard(ArrayList<String> hand, String faceCard){//for AI
 
-        ArrayList<String> playableCards = new ArrayList<>();
+        ArrayList<String> goodCards = new ArrayList<>();
 
-        boolean cardsToPlay = false;
+        getNumber(faceCard);
 
-        for (int checkedCards = 0; checkedCards < hand.size(); checkedCards++) {
+        getColor(faceCard);
 
-            if (isSpecial(hand, stackTop) == true || checkColor(hand, stackTop) == true || checkNumber(hand, stackTop) == true) {
+        for (int amountOfCards = 0; amountOfCards < hand.size(); amountOfCards++) {
 
-                playableCards.add(hand.get(checkedCards));
+            if (hand.get(amountOfCards).equals("Draw 4") || hand.get(amountOfCards).equals("Wild")){
 
-                cardsToPlay = true;
+                goodCards.add(hand.get(amountOfCards));
+
+            }
+
+            if(hand.get(amountOfCards).contains(color)|| hand.get(amountOfCards).contains(number)){
+
+                goodCards.add(hand.get(amountOfCards));
 
             }
 
         }
 
-        if (cardsToPlay) {
-            return playableCards;
-        }
-        return null;
+        int cardPlay = RNG.getInt(goodCards.size());
+
+        return goodCards.get(cardPlay);
+
     }
 
-    private boolean isSpecial(ArrayList<String> hand, String stackTop) {
-        for (int handSize = 0; handSize < hand.size(); handSize++) {
-            if (stackTop.contains("Draw 2") || stackTop.contains("Draw 4") || stackTop.contains("Skip") || stackTop.contains("Reverse") || stackTop.contains("Wild")) {
-                getColor(stackTop);
-                if (hand.get(handSize).contains("Wild") || hand.get(handSize).contains("Draw 4")) {
-                    playableCards.add(String.valueOf(handSize));
-                    return true;
+    String checkBotHand(ArrayList<String> hand, String faceCard){
+        String card = String.valueOf(RNG.getInt(hand.size()));
+        boolean canPlay = false;
+        while (!canPlay){
+            for (int handSize = 0; handSize < hand.size(); handSize++) {
+                if(card.contains(getColor(faceCard)) || card.contains(getNumber(faceCard))){
+                    canPlay = true;
+                }else if(card.equals("Wild") || card.equals("Draw 4")){
+                    canPlay = true;
                 }
-
-                if (hand.get(handSize).contains(color) != stackTop.contains(color)) {
-                    return false;
-
-                } else {
-                    playableCards.add(String.valueOf(handSize));
-                    return true;
-                }
             }
+            canPlay = false;
         }
-        return true;
-    }
-
-    private boolean checkColor(ArrayList<String> hand, String stackTop) {
-        getColor(stackTop);
-
-        for (int handSize = 0; handSize < hand.size(); handSize++) {
-            if(hand.get(handSize).contains("Wild") || hand.get(handSize).contains("Draw 4")){
-
-                return true;
-
-            }else if(hand.get(handSize).contains(color) != stackTop.contains(color)) {
-                return false;
-            }else{
-                playableCards.add(String.valueOf(handSize));
-                return true;
-            }
+        if (canPlay){
+            return card;
+        }else{
+            return null;
         }
-        return true;
     }
 
-    private boolean checkNumber(ArrayList<String> hand, String stackTop) {
-        getNumber(stackTop);
-
-        for (int handSize = 0; handSize < hand.size(); handSize++) {
-
-            if(hand.get(handSize).contains("Wild") || hand.get(handSize).contains("Draw 4")){
-
-                return true;
-
-            }else if(hand.get(handSize) != stackTop) {
-
-                return false;
-
-            } else {
-                playableCards.add(String.valueOf(handSize));
-                return true;
-            }
-        }
-        return true;
-    }
-
-//    void checkCard(ArrayList<String> hand) {
-//        boolean didTurn = false;
-//        ArrayList<String> cardsCanPlay = hand;
+//    String checkUserHand(ArrayList<String> hand, String faceCard, String playedCard){
 //
-//        if (cardsCanPlay.isEmpty()) {
-//            Card.drawNumOfCards(1, SetHands.playerHand);
-//            HumanPlayer. = true;
-//        } else {
-//            if (SetHands.playerHand.contains(cardChoice)) {
-//                if (cardChoice.equals("Wild")) {
-//                    cardRules.wild();
-//                    Controller.faceCard = cardChoice;
-//                    SetHands.playerHand.remove(cardChoice);
-//                    MainDeck.playedCards.add(cardChoice);
-//
-//                } else if (cardChoice.equals("Draw 4")) {
-//                    cardRules.draw4();
-//                    Controller.faceCard = cardChoice;
-//                    SetHands.playerHand.remove(cardChoice);
-//                    MainDeck.playedCards.add(cardChoice);
-//
-//                } else if (cardChoice.contains("Draw 2")) {
-//                    cardRules.draw2();
-//                    Controller.faceCard = cardChoice;
-//                    SetHands.playerHand.remove(cardChoice);
-//                    MainDeck.playedCards.add(cardChoice);
-//
-//                } else if (cardChoice.contains("Reverse")) {
-//                    cardRules.reverse();
-//                    Controller.faceCard = cardChoice;
-//                    SetHands.playerHand.remove(cardChoice);
-//                    MainDeck.playedCards.add(cardChoice);
-//
-//                } else if (cardChoice.contains("Skip")) {
-//                    cardRules.skip();
-//                    Controller.faceCard = cardChoice;
-//                    SetHands.playerHand.remove(cardChoice);
-//                    MainDeck.playedCards.add(cardChoice);
-//
-//                } else {
-//                    Controller.faceCard = cardChoice;
-//                    SetHands.playerHand.remove(cardChoice);
-//                    MainDeck.playedCards.add(cardChoice);
-//                }
-//                didTurn = true;
-//            } else {
-//                System.out.println("Card not found");
-//                didTurn = false;
-//            }
-//        }
-    }
+//    }
+}

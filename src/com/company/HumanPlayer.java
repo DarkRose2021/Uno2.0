@@ -13,7 +13,7 @@ public class HumanPlayer extends Player {
         super(name);
     }
 
-    static void userTurn() {
+    static void userTurn() throws InterruptedException {
         boolean didTurn = false;
         SpecialCardRules specialCardRules = new SpecialCardRules();
 
@@ -31,7 +31,7 @@ public class HumanPlayer extends Player {
 
                         rules.getACard(SetHands.playerHand, Controller.faceCard);
 
-                        if(cardChoice =)
+                        if(cardChoice ==)
 
 //                        if (cardChoice.equals("Wild")) {
 //                            specialCardRules.wild();

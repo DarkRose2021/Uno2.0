@@ -4,8 +4,9 @@ public class PlayerTurns {
     static int currentPlayer;
     static boolean isReversed = false;
 
-    static String startingPlayer(){
-        currentPlayer = RNG.getInt(0,3);
+
+    static String startingPlayer() {
+        currentPlayer = RNG.getInt(0, 3);
         return switch (currentPlayer) {
             case 0 -> Controller.players.get(0).toString();
             case 1 -> Controller.players.get(1).toString();
@@ -15,7 +16,8 @@ public class PlayerTurns {
         };
     }
 
-    static void nextPlayer(){
+    static void nextPlayer() {
+
         if (!isReversed) {
 
             if(currentPlayer != 3){
@@ -44,16 +46,20 @@ public class PlayerTurns {
     }
 
     static void turns() throws InterruptedException {
-        while (!Win.isWinner){
-            if (currentPlayer == 0){
+
+        while(!Win.isWinner) {
+
+            if (currentPlayer == 0) {
                 HumanPlayer.userTurn();
-            }else if(currentPlayer == 1){
+            } else if (currentPlayer == 1) {
                 AIPlayer.player1Turn();
-            }else if(currentPlayer == 2){
+            } else if (currentPlayer == 2) {
                 AIPlayer.player2Turn();
-            }else{
+            } else {
                 AIPlayer.player3Turn();
             }
+
         }
+
     }
 }

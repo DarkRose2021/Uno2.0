@@ -11,15 +11,14 @@ public class Controller {
     PrintCard currentCard = new PrintCard();
 
     public void run() throws InterruptedException {
-//        //clearing hands at the beginning so that if you want to play again you will get a new hand
-//        SetHands.playerHand.clear();
-//        SetHands.hand1.clear();
-//        SetHands.hand2.clear();
-//        SetHands.hand3.clear();
-
-
         boolean quit = false;
         while (!quit) {
+            //Clear hands if user wants to play again
+            SetHands.playerHand.clear();
+            SetHands.hand1.clear();
+            SetHands.hand2.clear();
+            SetHands.hand3.clear();
+
             View.displayMenu();
             int selection = Console.getInteger("Would you like to play a game Uno? ", 1, 2);
             switch (selection) {

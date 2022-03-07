@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AIPlayer extends Player {
     public AIPlayer(String name) {
@@ -17,32 +18,13 @@ public class AIPlayer extends Player {
         //Keep at end of method. moves to next player
         Win.setWinner(SetHands.hand1, 1);
         Thread.sleep(2000);
-        if (specialCard) {
-            switch (PlayerTurns.currentPlayer) {
-                case 0 -> PlayerTurns.currentPlayer = 3;
-                case 1, 2, 3 -> PlayerTurns.currentPlayer--;
-            }
-        }
-        PlayerTurns.nextPlayer();
     }
 
     static void player2Turn() throws InterruptedException {
         turnDo(SetHands.hand2, Controller.players.get(2).toString());
         //Keep at end of method. moves to next player
-        Win.setWinner(SetHands.hand2, 2);
+        Win.setWinner(SetHands.hand3, 3);
         Thread.sleep(2000);
-        if (specialCard && !PlayerTurns.isReversed) {
-            switch (PlayerTurns.currentPlayer) {
-                case 0 -> PlayerTurns.currentPlayer = 3;
-                case 1, 2, 3 -> PlayerTurns.currentPlayer--;
-            }
-        } else {
-            switch (PlayerTurns.currentPlayer) {
-                case 3 -> PlayerTurns.currentPlayer = 0;
-                case 1, 2, 0 -> PlayerTurns.currentPlayer--;
-            }
-        }
-        PlayerTurns.nextPlayer();
     }
 
     static void player3Turn() throws InterruptedException {
@@ -50,94 +32,77 @@ public class AIPlayer extends Player {
         //Keep at end of method. moves to next player
         Win.setWinner(SetHands.hand3, 3);
         Thread.sleep(2000);
-        if (specialCard) {
+    }
+
+    private static void turnDo(ArrayList<String> currentPlayerHand, String name) throws InterruptedException {
+        SpecialCardRules callRules = new SpecialCardRules();
+
+        String card = rules.getACard(currentPlayerHand, Controller.faceCard);
+
+//        String card = rules.checkBotHand(currentPlayerHand, Controller.faceCard);
+
+        if (card != null) {
+            if (card.contains("Reverse")) {
+                Controller.faceCard = card;
+                System.out.println(name + " played a " + card + ". Order is now reversed!");
+                currentPlayerHand.remove(card);
+                MainDeck.playedCards.add(card);
+                callRules.reverse();
+
+            } else if (card.contains("Skip")) {
+                Controller.faceCard = card;
+                System.out.println(name + " played a " + card + ". The next player gets skipped!");
+                currentPlayerHand.remove(card);
+                MainDeck.playedCards.add(card);
+                callRules.skip();
+                specialCard = true;
+
+            } else if (card.contains("Draw 2")) {
+                Controller.faceCard = card;
+                System.out.println(name + " played a " + card + ". The next player gets skipped and draws 2 cards!");
+                currentPlayerHand.remove(card);
+                MainDeck.playedCards.add(card);
+                callRules.draw2();
+                specialCard = true;
+
+            } else if (card.equals("Draw 4")) {
+                Controller.faceCard = card;
+                System.out.println(name + " played a " + card + ". The next player gets skipped and draws 4 cards!");
+                currentPlayerHand.remove(card);
+                MainDeck.playedCards.add(card);
+                callRules.draw4();
+                specialCard = true;
+            } else if (card.equals("Wild")) {
+                Controller.faceCard = card;
+                System.out.println(name + " played a " + card + ".");
+                currentPlayerHand.remove(card);
+                MainDeck.playedCards.add(card);
+                callRules.wild();
+            } else {
+                Controller.faceCard = card;
+                System.out.println(name + " played a " + card + ".");
+                currentPlayerHand.remove(card);
+                MainDeck.playedCards.add(card);
+            }
+        } else {
+            System.out.println(name + " drew a card.");
+            Card.drawNumOfCards(1, currentPlayerHand);
+        }
+        specialTurn();
+    }
+
+    protected static void specialTurn() throws InterruptedException {
+        if (specialCard && !PlayerTurns.isReversed) {
             switch (PlayerTurns.currentPlayer) {
                 case 0 -> PlayerTurns.currentPlayer = 3;
                 case 1, 2, 3 -> PlayerTurns.currentPlayer--;
             }
+        }else if (specialCard && PlayerTurns.isReversed) {
+            switch (PlayerTurns.currentPlayer) {
+                case 3 -> PlayerTurns.currentPlayer = 0;
+                case 1, 2, 0 -> PlayerTurns.currentPlayer--;
+            }
         }
         PlayerTurns.nextPlayer();
-    }
-
-    private static void turnDo(ArrayList<String> currentPlayerHand, String name) {
-        SpecialCardRules callRules = new SpecialCardRules();
-        ArrayList<String> cardsToPlay = new ArrayList<>();
-
-        for (int cardsInHand = 0; cardsInHand < currentPlayerHand.size(); cardsInHand++) {
-
-            if (currentPlayerHand.get(cardsInHand).contains("Wild")) {
-
-                callRules.wild();
-
-                Controller.faceCard = currentPlayerHand.get(cardsInHand);
-                currentPlayerHand.remove(currentPlayerHand.get(cardsInHand));
-                MainDeck.playedCards.add(currentPlayerHand.get(cardsInHand));
-                System.out.println(name+ " played a "+ currentPlayerHand.get(cardsInHand));
-
-                PlayerTurns.nextPlayer();
-
-
-            }else if(currentPlayerHand.get(cardsInHand).contains("Draw 4")){
-
-                callRules.draw4();
-
-                Controller.faceCard = currentPlayerHand.get(cardsInHand);
-                currentPlayerHand.remove(currentPlayerHand.get(cardsInHand));
-                MainDeck.playedCards.add(currentPlayerHand.get(cardsInHand));
-                System.out.println(name+ " played a "+ currentPlayerHand.get(cardsInHand));
-
-                PlayerTurns.nextPlayer();
-
-            }else if(currentPlayerHand.get(cardsInHand).contains("+2") && (currentPlayerHand.get(cardsInHand) == rules.color || currentPlayerHand.get(cardsInHand) == rules.number)){
-
-                callRules.draw2();
-
-                Controller.faceCard = currentPlayerHand.get(cardsInHand);
-                currentPlayerHand.remove(currentPlayerHand.get(cardsInHand));
-                MainDeck.playedCards.add(currentPlayerHand.get(cardsInHand));
-                System.out.println(name+ " played a "+ currentPlayerHand.get(cardsInHand));
-
-                PlayerTurns.nextPlayer();
-
-            }else if(currentPlayerHand.get(cardsInHand).contains("Reverse")&& (currentPlayerHand.get(cardsInHand) == rules.color || currentPlayerHand.get(cardsInHand) == rules.number)){
-
-                callRules.reverse();
-
-                Controller.faceCard = currentPlayerHand.get(cardsInHand);
-                currentPlayerHand.remove(currentPlayerHand.get(cardsInHand));
-                MainDeck.playedCards.add(currentPlayerHand.get(cardsInHand));
-                System.out.println(name+ " played a "+ currentPlayerHand.get(cardsInHand));
-
-                PlayerTurns.nextPlayer();
-
-            }else if(currentPlayerHand.get(cardsInHand).contains("Skip")&& (currentPlayerHand.get(cardsInHand) == rules.color || currentPlayerHand.get(cardsInHand) == rules.number)){
-
-                callRules.skip();
-
-                Controller.faceCard = currentPlayerHand.get(cardsInHand);
-                currentPlayerHand.remove(currentPlayerHand.get(cardsInHand));
-                MainDeck.playedCards.add(currentPlayerHand.get(cardsInHand));
-                System.out.println(name+ " played a "+ currentPlayerHand.get(cardsInHand));
-
-                PlayerTurns.nextPlayer();
-
-            }else if(currentPlayerHand.get(cardsInHand) == rules.number || currentPlayerHand.get(cardsInHand) == rules.color){
-
-                Controller.faceCard = currentPlayerHand.get(cardsInHand);
-                currentPlayerHand.remove(currentPlayerHand.get(cardsInHand));
-                MainDeck.playedCards.add(currentPlayerHand.get(cardsInHand));
-                System.out.println(name+ " played a "+ currentPlayerHand.get(cardsInHand));
-
-                PlayerTurns.nextPlayer();
-
-            }else{
-
-                Card.drawNumOfCards(1, currentPlayerHand);
-
-                PlayerTurns.nextPlayer();
-
-            }
-
-        }
     }
 }
