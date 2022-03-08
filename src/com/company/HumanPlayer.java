@@ -33,15 +33,15 @@ public class HumanPlayer extends Player {
                             if (SetHands.playerHand.contains(cardChoice)) {
                                 ArrayList<String> possibleCards = rules.checkTheCards(SetHands.playerHand, Controller.faceCard);
 
-                            if (possibleCards.isEmpty()) {
-                                Card.drawNumOfCards(1, SetHands.playerHand);
-                                System.out.println("No Possible Cards Found, Enjoy This New Card!");
-                                didTurn = true;
-                                playableCard = true;
-                                break;
-                            }
+                                if (possibleCards.isEmpty()) {
+                                    Card.drawNumOfCards(1, SetHands.playerHand);
+                                    System.out.println("No Possible Cards Found, Enjoy This New Card!");
+                                    didTurn = true;
+                                    playableCard = true;
+                                    break;
+                                }
 
-                            for (int playerChoice = 0; playerChoice < SetHands.playerHand.size(); playerChoice++) {
+                                for (int playerChoice = 0; playerChoice < SetHands.playerHand.size(); playerChoice++) {
 
                                     if (cardChoice.contains(possibleCards.get(playerChoice))) {
 
