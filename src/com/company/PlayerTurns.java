@@ -33,20 +33,16 @@ public class PlayerTurns {
     }
 
     static void turns() throws InterruptedException {
-
         while(!Win.isWinner) {
-
             if (currentPlayer == 0) {
                 HumanPlayer.userTurn();
             } else if (currentPlayer == 1) {
                 AIPlayer.player1Turn();
             } else if (currentPlayer == 2) {
                 AIPlayer.player2Turn();
-            } else {
+            } else if (currentPlayer == 3){
                 AIPlayer.player3Turn();
             }
-
         }
-
     }
 }

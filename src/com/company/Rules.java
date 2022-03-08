@@ -67,13 +67,13 @@ public class Rules {
         getColor(faceCard);
         int cardPlay;
 
-        for (String s : hand) {
-            if (s.equals("Draw 4") || s.equals("Wild") || (s.equals("Draw 2") && s.equals(color))) {
-                goodCards.add(s);
+        for (String playedCard : hand) {
+            if (playedCard.equals("Draw 4") || playedCard.equals("Wild") || (playedCard.equals("Draw 2") && playedCard.equals(color))) {
+                goodCards.add(playedCard);
             }
 
-            if (s.contains(color) || s.contains(number)) {
-                goodCards.add(s);
+            if (playedCard.contains(color) || playedCard.contains(number)) {
+                goodCards.add(playedCard);
             }
         }
 
@@ -90,13 +90,13 @@ public class Rules {
         getNumber(faceCard);
         getColor(faceCard);
 
-        for (String s : hand) {
-            if (s.equals("Draw 4") || s.equals("Wild")) {
-                possibleCards.add(s);
-            }
-
-            if (s.contains(color) || s.contains(number)) {
-                possibleCards.add(s);
+        for (String playedCard : hand) {
+            if (playedCard.equals("Draw 4") || playedCard.equals("Wild")) {
+                possibleCards.add(playedCard);
+            }else if((playedCard.equals("Draw 2") && playedCard.equals(color))){
+                possibleCards.add(playedCard);
+            }else if(playedCard.contains(color) || playedCard.contains(number)){
+                possibleCards.add(playedCard);
             }
         }
         return possibleCards;
