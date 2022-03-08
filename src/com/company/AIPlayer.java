@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class AIPlayer extends Player {
     public AIPlayer(String name) {
@@ -13,10 +12,9 @@ public class AIPlayer extends Player {
     protected static boolean specialCard;
     private static PrintCard printCard = new PrintCard();
 
-    //TODO let bots randomly draw a card from their deck that matches the face card or have them draw cards
     static void player1Turn() throws InterruptedException {
+        AITurn(SetHands.hand1, Controller.players.get(1).toString());
         Win.setWinner(SetHands.hand1, 1);
-        turnDo(SetHands.hand1, Controller.players.get(1).toString());
         //Keep at end of method. moves to next player
         printCard.printFaceCard(Controller.faceCard);
         System.out.println();
@@ -24,8 +22,8 @@ public class AIPlayer extends Player {
     }
 
     static void player2Turn() throws InterruptedException {
+        AITurn(SetHands.hand2, Controller.players.get(2).toString());
         Win.setWinner(SetHands.hand3, 3);
-        turnDo(SetHands.hand2, Controller.players.get(2).toString());
         //Keep at end of method. moves to next player
         printCard.printFaceCard(Controller.faceCard);
         System.out.println();
@@ -33,8 +31,8 @@ public class AIPlayer extends Player {
     }
 
     static void player3Turn() throws InterruptedException {
+        AITurn(SetHands.hand3, Controller.players.get(3).toString());
         Win.setWinner(SetHands.hand3, 3);
-        turnDo(SetHands.hand3, Controller.players.get(3).toString());
         //Keep at end of method. moves to next player
         printCard.printFaceCard(Controller.faceCard);
         System.out.println();
@@ -42,7 +40,7 @@ public class AIPlayer extends Player {
 
     }
 
-    private static void turnDo(ArrayList<String> currentPlayerHand, String name) throws InterruptedException {
+    private static void AITurn(ArrayList<String> currentPlayerHand, String name){
         SpecialCardRules callRules = new SpecialCardRules();
         String card = rules.getACard(currentPlayerHand, Controller.faceCard);
 
@@ -102,7 +100,7 @@ public class AIPlayer extends Player {
         specialTurn();
     }
 
-    protected static void specialTurn() throws InterruptedException {
+    protected static void specialTurn() {
         if (specialCard && !PlayerTurns.isReversed) {
             switch (PlayerTurns.currentPlayer) {
                 case 0 -> PlayerTurns.currentPlayer = 3;

@@ -8,7 +8,7 @@ public class PrintCard {
     String colorReset = "" + Console.RESET;
 
     public void printHand(ArrayList<String> playerHand) {
-        int index = 0;
+        int index = 1;
         for (String cards : playerHand) {
             getInfo(cards);
             System.out.print("["+index+"] "+ cardColor + cards + colorReset + ", ");

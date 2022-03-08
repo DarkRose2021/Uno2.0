@@ -3,8 +3,6 @@ package com.company;
 import java.util.ArrayList;
 
 public class View {
-    private static PrintCard printCard = new PrintCard();
-
     static void displayMenu() {
         System.out.println("[1] Yes");
         System.out.println("[2] No");
@@ -23,9 +21,9 @@ public class View {
     }
 
     static void displayColor() {
-        System.out.println("[1] Red");
-        System.out.println("[2] Yellow");
-        System.out.println("[3] Blue");
-        System.out.println("[4] Green");
+        System.out.println("[1] "+ Console.RED +"Red"+ Console.RESET);
+        System.out.println("[2] "+ Console.YELLOW +"Yellow"+ Console.RESET);
+        System.out.println("[3] "+ Console.BLUE +"Blue"+ Console.RESET);
+        System.out.println("[4] "+ Console.GREEN +"Green"+ Console.RESET);
     }
 }

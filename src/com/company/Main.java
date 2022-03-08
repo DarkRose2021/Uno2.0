@@ -6,7 +6,7 @@ public class Main {
         try{
             Controller controller = new Controller();
             controller.run();
-        }catch (Exception e){
+        }catch (InterruptedException e){
             System.out.println(e.getMessage());
         }
     }

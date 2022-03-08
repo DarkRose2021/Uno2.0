@@ -70,6 +70,7 @@ public class Rules {
         ArrayList<String> goodCards = new ArrayList<>();
         getNumber(faceCard);
         getColor(faceCard);
+        int cardPlay = 0;
 
         for (int amountOfCards = 0; amountOfCards < hand.size(); amountOfCards++) {
             if (hand.get(amountOfCards).equals("Draw 4") || hand.get(amountOfCards).equals("Wild")){
@@ -81,7 +82,11 @@ public class Rules {
             }
         }
 
-        int cardPlay = RNG.getInt(goodCards.size());
+        if(!goodCards.isEmpty()){
+            cardPlay = RNG.getInt(goodCards.size());
+        }else{
+            return null;
+        }
         return goodCards.get(cardPlay);
     }
 

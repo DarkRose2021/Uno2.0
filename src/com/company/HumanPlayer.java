@@ -13,7 +13,6 @@ public class HumanPlayer extends Player {
     protected static void userTurn() throws InterruptedException {
         boolean didTurn = false;
         SpecialCardRules specialCardRules = new SpecialCardRules();
-
         Rules rules = new Rules();
 
         while (!didTurn) {
@@ -23,14 +22,16 @@ public class HumanPlayer extends Player {
             View.playerTurn();
             int selection = Console.getInteger("Enter Selection: ", 1, 2);
 
-            switch (selection) {
-                case 1: //Play Card
-                    while (!playableCard) {
-                        int cardNum = Console.getInteger("Enter index of the card you want to play: ", 0, SetHands.playerHand.size());
-                        String cardChoice = SetHands.playerHand.get(cardNum);
+            try {
+                switch (selection) {
+                    case 1: //Play Card
+                        while (!playableCard) {
+                            int cardNum = Console.getInteger("Enter index of the card you want to play: ", 0, SetHands.playerHand.size());
+                            String cardChoice = SetHands.playerHand.get((cardNum - 1));
 
-                        if (SetHands.playerHand.contains(cardChoice)) {
-                            ArrayList<String> possibleCards = rules.checkTheCards(SetHands.playerHand, Controller.faceCard);
+
+                            if (SetHands.playerHand.contains(cardChoice)) {
+                                ArrayList<String> possibleCards = rules.checkTheCards(SetHands.playerHand, Controller.faceCard);
 
                             if (possibleCards.isEmpty()) {
                                 Card.drawNumOfCards(1, SetHands.playerHand);
@@ -42,80 +43,84 @@ public class HumanPlayer extends Player {
 
                             for (int playerChoice = 0; playerChoice < SetHands.playerHand.size(); playerChoice++) {
 
-                                if (cardChoice.contains(possibleCards.get(playerChoice))) {
+                                    if (cardChoice.contains(possibleCards.get(playerChoice))) {
 
-                                    if (cardChoice.equals("Wild")) {
-                                        specialCardRules.wild();
-                                        SetHands.playerHand.remove(cardChoice);
-                                        MainDeck.playedCards.add(cardChoice);
+                                        if (cardChoice.equals("Wild")) {
+                                            specialCardRules.wild();
+                                            SetHands.playerHand.remove(cardChoice);
+                                            MainDeck.playedCards.add(cardChoice);
 
-                                        AIPlayer.specialCard = false;
-                                        playableCard = true;
-                                        break;
+                                            AIPlayer.specialCard = false;
+                                            playableCard = true;
+                                            break;
 
-                                    } else if (cardChoice.equals("Draw 4")) {
-                                        specialCardRules.draw4();
-                                        SetHands.playerHand.remove(cardChoice);
-                                        MainDeck.playedCards.add(cardChoice);
+                                        } else if (cardChoice.equals("Draw 4")) {
+                                            specialCardRules.draw4();
+                                            SetHands.playerHand.remove(cardChoice);
+                                            MainDeck.playedCards.add(cardChoice);
 
-                                        AIPlayer.specialCard = true;
-                                        playableCard = true;
-                                        break;
+                                            AIPlayer.specialCard = true;
+                                            playableCard = true;
+                                            break;
 
-                                    } else if (cardChoice.contains("Draw 2")) {
-                                        specialCardRules.draw2();
-                                        Controller.faceCard = cardChoice;
-                                        SetHands.playerHand.remove(cardChoice);
-                                        MainDeck.playedCards.add(cardChoice);
+                                        } else if (cardChoice.contains("Draw 2")) {
+                                            specialCardRules.draw2();
+                                            Controller.faceCard = cardChoice;
+                                            SetHands.playerHand.remove(cardChoice);
+                                            MainDeck.playedCards.add(cardChoice);
 
-                                        AIPlayer.specialCard = true;
-                                        playableCard = true;
-                                        break;
+                                            AIPlayer.specialCard = true;
+                                            playableCard = true;
+                                            break;
 
-                                    } else if (cardChoice.contains("Reverse")) {
-                                        specialCardRules.reverse();
-                                        Controller.faceCard = cardChoice;
-                                        SetHands.playerHand.remove(cardChoice);
-                                        MainDeck.playedCards.add(cardChoice);
+                                        } else if (cardChoice.contains("Reverse")) {
+                                            specialCardRules.reverse();
+                                            Controller.faceCard = cardChoice;
+                                            SetHands.playerHand.remove(cardChoice);
+                                            MainDeck.playedCards.add(cardChoice);
 
-                                        AIPlayer.specialCard = false;
-                                        playableCard = true;
-                                        break;
+                                            AIPlayer.specialCard = false;
+                                            playableCard = true;
+                                            break;
 
-                                    } else if (cardChoice.contains("Skip")) {
-                                        specialCardRules.skip();
-                                        Controller.faceCard = cardChoice;
-                                        SetHands.playerHand.remove(cardChoice);
-                                        MainDeck.playedCards.add(cardChoice);
+                                        } else if (cardChoice.contains("Skip")) {
+                                            specialCardRules.skip();
+                                            Controller.faceCard = cardChoice;
+                                            SetHands.playerHand.remove(cardChoice);
+                                            MainDeck.playedCards.add(cardChoice);
 
-                                        AIPlayer.specialCard = true;
-                                        playableCard = true;
-                                        break;
+                                            AIPlayer.specialCard = true;
+                                            playableCard = true;
+                                            break;
 
-                                    } else {
-                                        Controller.faceCard = cardChoice;
-                                        SetHands.playerHand.remove(cardChoice);
-                                        MainDeck.playedCards.add(cardChoice);
+                                        } else {
+                                            Controller.faceCard = cardChoice;
+                                            SetHands.playerHand.remove(cardChoice);
+                                            MainDeck.playedCards.add(cardChoice);
 
-                                        AIPlayer.specialCard = false;
-                                        playableCard = true;
-                                        break;
+                                            AIPlayer.specialCard = false;
+                                            playableCard = true;
+                                            break;
+                                        }
+
                                     }
+
                                 }
+                                didTurn = true;
                             }
-                            card.printFaceCard(Controller.faceCard);
-                            didTurn = true;
+                            break;
                         }
                         break;
-                    }
-                    break;
 
-                case 2:
-                    Card.drawNumOfCards(1, SetHands.playerHand);
-                    System.out.println(Controller.players.get(0).toString() + " drew a card");
+                    case 2:
+                        Card.drawNumOfCards(1, SetHands.playerHand);
+                        System.out.println(Controller.players.get(0).toString() + " drew a card");
 
-                    didTurn = true;
-                    break;
+                        didTurn = true;
+                        break;
+                }
+            }catch (IndexOutOfBoundsException index){
+                System.out.println("You must play a valid card");
             }
         }
         //Keep at end of method. moves to next player
@@ -123,7 +128,6 @@ public class HumanPlayer extends Player {
         System.out.println();
         AIPlayer.specialTurn();
     }
-
 
 /*
     static void callUno() {
