@@ -73,7 +73,7 @@ public class Rules {
         int cardPlay = 0;
 
         for (int amountOfCards = 0; amountOfCards < hand.size(); amountOfCards++) {
-            if (hand.get(amountOfCards).equals("Draw 4") || hand.get(amountOfCards).equals("Wild")){
+            if (hand.get(amountOfCards).equals("Draw 4") || hand.get(amountOfCards).equals("Wild") || (hand.get(amountOfCards).equals("Draw 2") && hand.get(amountOfCards) == color)){
                 goodCards.add(hand.get(amountOfCards));
             }
 
