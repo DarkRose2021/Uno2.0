@@ -3,20 +3,19 @@ package com.company;
 import java.util.ArrayList;
 
 public class HumanPlayer extends Player {
-    private static PrintCard card = new PrintCard();
-    private static boolean playableCard = false;
+    private static final PrintCard card = new PrintCard();
 
     public HumanPlayer(String name) {
         super(name);
     }
 
-    protected static void userTurn() throws InterruptedException {
+    protected static void userTurn(){
         boolean didTurn = false;
         SpecialCardRules specialCardRules = new SpecialCardRules();
         Rules rules = new Rules();
 
         while (!didTurn) {
-            playableCard = false;
+            boolean playableCard = false;
             Win.setWinner(SetHands.playerHand, 0);
             card.printHand(SetHands.playerHand);
             View.playerTurn();
@@ -37,7 +36,6 @@ public class HumanPlayer extends Player {
                                     Card.drawNumOfCards(1, SetHands.playerHand);
                                     System.out.println("No Possible Cards Found, Enjoy This New Card!");
                                     didTurn = true;
-                                    playableCard = true;
                                     break;
                                 }
 
@@ -108,7 +106,6 @@ public class HumanPlayer extends Player {
                                 }
                                 didTurn = true;
                             }
-                            break;
                         }
                         break;
 

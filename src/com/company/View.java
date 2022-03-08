@@ -1,7 +1,5 @@
 package com.company;
 
-import java.util.ArrayList;
-
 public class View {
     static void displayMenu() {
         System.out.println("[1] Yes");

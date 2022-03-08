@@ -7,10 +7,9 @@ public class AIPlayer extends Player {
         super(name);
     }
 
-    private static Rules rules = new Rules();
-    private static PrintCard card = new PrintCard();
+    private static final Rules rules = new Rules();
     protected static boolean specialCard;
-    private static PrintCard printCard = new PrintCard();
+    private static final PrintCard printCard = new PrintCard();
 
     static void player1Turn() throws InterruptedException {
         AITurn(SetHands.hand1, Controller.players.get(1).toString());

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class MainDeck{
 
-    private ArrayList<String> unoDeck = new ArrayList<>();
+    private final ArrayList<String> unoDeck = new ArrayList<>();
     static ArrayList<String> playedCards = new ArrayList<>();
 
     public ArrayList<String> getUnoDeck() {
@@ -21,13 +21,9 @@ public class MainDeck{
     private void cardCreate(String color) {
 
         for (int wilds = 0; wilds < 2; wilds++) {
-            switch (wilds){
-                case 0:
-                    unoDeck.add("Wild");
-                    break;
-                case 1:
-                    unoDeck.add("Draw 4");
-                    break;
+            switch (wilds) {
+                case 0 -> unoDeck.add("Wild");
+                case 1 -> unoDeck.add("Draw 4");
             }
         }
 
@@ -43,15 +39,9 @@ public class MainDeck{
 
             for (int nonBasics = 0; nonBasics < 4; nonBasics++) {
                 switch (nonBasics) {
-                    case 1:
-                        unoDeck.add(color + " " + "Skip");
-                        break;
-                    case 2:
-                        unoDeck.add(color + " " + "Reverse");
-                        break;
-                    case 3:
-                        unoDeck.add(color + " " + "Draw 2");
-                        break;
+                    case 1 -> unoDeck.add(color + " " + "Skip");
+                    case 2 -> unoDeck.add(color + " " + "Reverse");
+                    case 3 -> unoDeck.add(color + " " + "Draw 2");
                 }
             }
         }

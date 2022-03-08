@@ -14,13 +14,8 @@ public class Rules {
         add option to add  AI players
      */
 
-    String stackTop = "";
-
     String color = "";
     String number = "";
-    //    String specialCase = "";
-    //    SpecialCardRules cardRules = new SpecialCardRules();
-    //    ArrayList<String> playableCards = new ArrayList<>();
 
     private String getColor(String topCard) {
         if (topCard.contains("Red")) {
@@ -70,15 +65,15 @@ public class Rules {
         ArrayList<String> goodCards = new ArrayList<>();
         getNumber(faceCard);
         getColor(faceCard);
-        int cardPlay = 0;
+        int cardPlay;
 
-        for (int amountOfCards = 0; amountOfCards < hand.size(); amountOfCards++) {
-            if (hand.get(amountOfCards).equals("Draw 4") || hand.get(amountOfCards).equals("Wild") || (hand.get(amountOfCards).equals("Draw 2") && hand.get(amountOfCards) == color)){
-                goodCards.add(hand.get(amountOfCards));
+        for (String s : hand) {
+            if (s.equals("Draw 4") || s.equals("Wild") || (s.equals("Draw 2") && s.equals(color))) {
+                goodCards.add(s);
             }
 
-            if(hand.get(amountOfCards).contains(color)|| hand.get(amountOfCards).contains(number)){
-                goodCards.add(hand.get(amountOfCards));
+            if (s.contains(color) || s.contains(number)) {
+                goodCards.add(s);
             }
         }
 
@@ -95,13 +90,13 @@ public class Rules {
         getNumber(faceCard);
         getColor(faceCard);
 
-        for (int amountOfCards = 0; amountOfCards < hand.size(); amountOfCards++) {
-            if (hand.get(amountOfCards).equals("Draw 4") || hand.get(amountOfCards).equals("Wild")){
-                possibleCards.add(hand.get(amountOfCards));
+        for (String s : hand) {
+            if (s.equals("Draw 4") || s.equals("Wild")) {
+                possibleCards.add(s);
             }
 
-            if(hand.get(amountOfCards).contains(color)|| hand.get(amountOfCards).contains(number)){
-                possibleCards.add(hand.get(amountOfCards));
+            if (s.contains(color) || s.contains(number)) {
+                possibleCards.add(s);
             }
         }
         return possibleCards;

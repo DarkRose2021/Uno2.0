@@ -29,7 +29,6 @@ public class Controller {
                 switch (selection) {
                     case 1 -> {
                         deck.buildDeck();
-                        deck.getUnoDeck();
                         faceCard = card.genFirstCard(deck);
 
                         //Setting User's name and hand
