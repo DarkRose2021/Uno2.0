@@ -18,18 +18,19 @@ public class PlayerTurns {
 
     static void nextPlayer() {
         if (!isReversed) {
-            if(currentPlayer != 3){
+            if(currentPlayer < 3){
                 currentPlayer++;
             }else{
                 currentPlayer = 0;
             }
         } else {
-            if(currentPlayer != 0){
+            if(currentPlayer > 0){
                 currentPlayer --;
             }else{
                 currentPlayer = 3;
             }
         }
+
     }
 
     static void turns() throws InterruptedException {

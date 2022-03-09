@@ -62,6 +62,7 @@ public class Rules {
     }
 
     public String getACard(ArrayList<String> hand, String faceCard){//for AI
+
         ArrayList<String> goodCards = new ArrayList<>();
 
         getNumber(faceCard);
@@ -92,6 +93,12 @@ public class Rules {
 
     private void checkForPlayableCards(ArrayList<String> hand, ArrayList<String> goodCards) {
         for (String playedCard : hand) {
+
+            if ((playedCard.equals("Draw 2") && playedCard.equals(color) && playedCard.equals("" + number))){
+                goodCards.add(playedCard);
+
+            }
+
             if (playedCard.equals("Draw 4") || playedCard.equals("Wild")) {
                 goodCards.add(playedCard);
 

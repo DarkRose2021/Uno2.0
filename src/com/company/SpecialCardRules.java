@@ -2,18 +2,21 @@ package com.company;
 
 public class SpecialCardRules{
     void skip() {
+
+        //Right here is the problem
+
         if (PlayerTurns.isReversed) {
             switch (PlayerTurns.currentPlayer) {
                 case 0 -> PlayerTurns.currentPlayer = 2;
                 case 1 -> PlayerTurns.currentPlayer = 3;
-                case 2, 3 -> PlayerTurns.currentPlayer -= 2;
+                case 2 -> PlayerTurns.currentPlayer = 0;
+                case 3 -> PlayerTurns.currentPlayer = 1;
             }
         } else {
             switch (PlayerTurns.currentPlayer) {
                 case 0 -> PlayerTurns.currentPlayer = 2;
                 case 1 -> PlayerTurns.currentPlayer = 3;
                 case 2 -> PlayerTurns.currentPlayer = 0;
-                case 0, 1 -> PlayerTurns.currentPlayer += 2;
                 case 3 -> PlayerTurns.currentPlayer = 1;
             }
         }
