@@ -12,10 +12,14 @@ public class Controller {
 
     public void run() throws InterruptedException {
         boolean quit = false;
+        boolean firstGame = true;
+        int selection = 0;
         while (!quit) {
-            View.displayMenu();
-            int selection = Console.getInteger("Would you like to play a game Uno? ", 1, 2);
-
+            if (firstGame) {
+                View.displayMenu();
+                selection = Console.getInteger("Would you like to play a game Uno? ", 1, 2);
+                firstGame = false;
+            }
             while (!Win.isWinner) {
                 //Clear hands if user wants to play again
                 PlayerTurns.isReversed = false;
@@ -65,7 +69,8 @@ public class Controller {
                 }
             }
             Win.displayWinner();
-            int playAgain = Console.getInteger("Would you like to play again? ",1,2);
+            View.displayMenu();
+            int playAgain = Console.getInteger("Would you like to play again? ", 1, 2);
             switch (playAgain) {
                 case 1 -> Win.isWinner = false;
                 case 2 -> quit = true;

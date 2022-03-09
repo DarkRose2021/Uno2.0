@@ -10,6 +10,8 @@ public class SpecialCardRules{
             }
         } else {
             switch (PlayerTurns.currentPlayer) {
+                case 0 -> PlayerTurns.currentPlayer = 2;
+                case 1 -> PlayerTurns.currentPlayer = 3;
                 case 2 -> PlayerTurns.currentPlayer = 0;
                 case 0, 1 -> PlayerTurns.currentPlayer += 2;
                 case 3 -> PlayerTurns.currentPlayer = 1;

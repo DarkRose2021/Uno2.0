@@ -1,5 +1,7 @@
 package com.company;
 
+import com.sun.tools.javac.Main;
+
 import java.util.ArrayList;
 
 public class Card extends MainDeck{
@@ -28,7 +30,9 @@ public class Card extends MainDeck{
         int cards = RNG.getInt(MainDeck.playedCards.size());
         String randomCard;
 
-        if(deck.getUnoDeck().isEmpty()){
+        if(deck.getUnoDeck().size() <= 7){
+            MainDeck.playedCards.addAll(deck.getUnoDeck());
+
             randomCard = MainDeck.playedCards.get(cards);
             MainDeck.playedCards.remove(randomCard);
         }else{

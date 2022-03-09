@@ -63,42 +63,43 @@ public class Rules {
 
     public String getACard(ArrayList<String> hand, String faceCard){//for AI
         ArrayList<String> goodCards = new ArrayList<>();
+
         getNumber(faceCard);
         getColor(faceCard);
         int cardPlay;
 
-        for (String playedCard : hand) {
-            if (playedCard.equals("Draw 4") || playedCard.equals("Wild") || (playedCard.equals("Draw 2") && playedCard.equals(color))) {
-                goodCards.add(playedCard);
-            }
-
-            if (playedCard.contains(color) || playedCard.contains(number)) {
-                goodCards.add(playedCard);
-            }
-        }
+        checkForPlayableCards(hand, goodCards);
 
         if(!goodCards.isEmpty()){
             cardPlay = RNG.getInt(goodCards.size());
         }else{
             return null;
         }
+
         return goodCards.get(cardPlay);
     }
 
     public ArrayList<String> checkTheCards(ArrayList<String> hand, String faceCard){//for User
         ArrayList<String> possibleCards = new ArrayList<>();
+
         getNumber(faceCard);
         getColor(faceCard);
 
+        checkForPlayableCards(hand, possibleCards);
+
+        return possibleCards;
+    }
+
+    private void checkForPlayableCards(ArrayList<String> hand, ArrayList<String> goodCards) {
         for (String playedCard : hand) {
             if (playedCard.equals("Draw 4") || playedCard.equals("Wild")) {
-                possibleCards.add(playedCard);
-            }else if((playedCard.equals("Draw 2") && playedCard.equals(color))){
-                possibleCards.add(playedCard);
+                goodCards.add(playedCard);
+
             }else if(playedCard.contains(color) || playedCard.contains(number)){
-                possibleCards.add(playedCard);
+
+                goodCards.add(playedCard);
+
             }
         }
-        return possibleCards;
     }
 }

@@ -16,7 +16,6 @@ public class HumanPlayer extends Player {
 
         while (!didTurn) {
             boolean playableCard = false;
-            Win.setWinner(SetHands.playerHand, 0);
             card.printHand(SetHands.playerHand);
             View.playerTurn();
             int selection = Console.getInteger("Enter Selection: ", 1, 2);
@@ -121,6 +120,7 @@ public class HumanPlayer extends Player {
             }
         }
         //Keep at end of method. moves to next player
+        Win.setWinner(SetHands.playerHand, 0);
         card.printFaceCard(Controller.faceCard);
         System.out.println();
         AIPlayer.specialTurn();
